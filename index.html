@@ -1,28 +1,41 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kit.Wision | Premium Jerseys</title>
     
+    <title>Kit.Wision | Premium Football Jerseys</title>
+    <meta name="description" content="Kit.Wision - Buy premium football jerseys for the best prices. Order online today.">
+    <meta name="keywords" content="Kit.Wision, KitWision, football jerseys, fotbalové dresy, levné dresy, soccer kits, Mbappé jersey, dresy 274 Kč">
+    <meta name="author" content="Kit.Wision">
+    
+    <meta property="og:title" content="Kit.Wision | Premium Jerseys">
+    <meta property="og:description" content="Get your favorite football jersey for only 274 Kč.">
+    <meta property="og:type" content="website">
+
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
+        :root {
+            --accent: #fff;
+            --bg: #000;
+            --card-bg: #111;
+        }
+
         body {
-            background-color: #000;
+            background-color: var(--bg);
             color: white;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
             scroll-behavior: smooth;
             overflow-x: hidden;
-            width: 100%;
         }
 
         /* JAZYKOVÉ MENU */
         .lang-menu {
             position: fixed;
             top: 20px;
-            right: 40px;
+            right: 30px;
             z-index: 200;
         }
 
@@ -31,26 +44,26 @@
             font-weight: 600;
             font-size: 0.9rem;
             background: rgba(255, 255, 255, 0.1);
-            padding: 8px 15px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
+            padding: 10px 18px;
+            border-radius: 30px;
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
         }
 
         .lang-dropdown {
             position: absolute;
-            top: 100%;
+            top: 110%;
             right: 0;
-            background: rgba(20, 20, 20, 0.95);
+            background: rgba(20, 20, 20, 0.98);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            margin-top: 10px;
+            border-radius: 15px;
             overflow: hidden;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
-            transition: all 0.3s ease;
-            min-width: 140px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            min-width: 150px;
         }
 
         .lang-menu:hover .lang-dropdown {
@@ -66,11 +79,12 @@
             text-decoration: none;
             font-size: 0.9rem;
             cursor: pointer;
+            transition: 0.2s;
         }
 
         .lang-option:hover { background: rgba(255, 255, 255, 0.1); }
 
-        /* OPRAVA PLYNULOSTI NÁZVU */
+        /* PLYNULÁ NAVIGACE A NÁZEV */
         #main-nav {
             position: fixed;
             top: 50%;
@@ -79,27 +93,27 @@
             z-index: 100;
             width: 100%;
             text-align: center;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); /* Plynulejší přechod */
+            transition: all 0.9s cubic-bezier(0.19, 1, 0.22, 1);
             pointer-events: none;
-            will-change: transform, top;
+            will-change: transform, top, font-size;
         }
 
         #main-nav h1 {
-            font-size: clamp(4rem, 15vw, 10rem);
+            font-size: clamp(3.5rem, 15vw, 10rem);
             letter-spacing: -5px;
             margin: 0;
             font-weight: 800;
-            transition: font-size 0.8s cubic-bezier(0.4, 0, 0.2, 1), letter-spacing 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.9s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
         #hero-subtitle {
-            font-size: clamp(1.2rem, 3vw, 2.2rem); 
-            margin-top: 20px;
+            font-size: clamp(1rem, 2.5vw, 1.8rem); 
+            margin-top: 15px;
             text-transform: lowercase;
-            transition: opacity 0.5s ease;
+            opacity: 0.8;
+            transition: 0.5s;
         }
 
-        /* STAV PO SCROLLU */
         #main-nav.scrolled {
             top: 40px;
             transform: translate(-50%, 0);
@@ -110,19 +124,37 @@
             letter-spacing: -1px; 
         }
 
-        #main-nav.scrolled #hero-subtitle { 
-            opacity: 0; 
+        #main-nav.scrolled #hero-subtitle { opacity: 0; transform: translateY(-20px); }
+
+        /* HLAVNÍ SEKCE */
+        section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 10%;
+            position: relative;
+            z-index: 10;
         }
 
-        /* PRODUKTOVÝ BOX */
-        .product-box { max-width: 600px; display: flex; flex-direction: column; align-items: flex-end; }
+        .product-box { 
+            max-width: 550px; 
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
         .img-product-main {
             width: 100%;
-            max-width: 500px;
-            transform: rotate(-5deg); 
-            filter: brightness(1.1);
-            margin-bottom: 25px;
+            max-width: 450px;
+            transform: rotate(-6deg); 
+            filter: drop-shadow(0 20px 50px rgba(255,255,255,0.1));
+            margin-bottom: 30px;
+            transition: 0.5s;
         }
+
+        .img-product-main:hover { transform: rotate(0deg) scale(1.05); }
 
         #visual-center {
             position: fixed;
@@ -130,77 +162,71 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 1;
-            opacity: 0.3;
+            opacity: 0.2;
+            pointer-events: none;
         }
 
-        .money-icon { font-size: clamp(100px, 15vw, 180px); }
-
-        section {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding: 0 10%;
-            position: relative;
-            z-index: 10;
-            text-align: right;
-        }
-
-        h2 { font-size: clamp(1.8rem, 5vw, 3.5rem); margin: 0; padding-bottom: 15px; }
+        .money-icon { font-size: 180px; }
 
         .btn-trigger {
             display: inline-block;
             background: white;
             color: black;
-            padding: 15px 35px;
+            padding: 18px 40px;
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             border-radius: 50px;
-            transition: 0.3s;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-decoration: none;
             border: none;
         }
 
-        .btn-trigger:hover { transform: scale(1.1); }
+        .btn-trigger:hover { transform: scale(1.1); box-shadow: 0 10px 30px rgba(255,255,255,0.2); }
 
         /* SHOP STRÁNKA */
         #shop-page {
             display: none;
-            padding: 120px 5% 50px;
+            padding: 150px 5% 50px;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: 0.8s ease;
         }
 
         .shop-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            max-width: 1000px;
-            margin: 50px auto;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 60px auto;
         }
 
         .shop-card {
-            background: #111;
-            border-radius: 25px;
+            background: var(--card-bg);
+            border-radius: 30px;
             padding: 40px;
             text-align: center;
             border: 1px solid #222;
+            transition: 0.4s;
         }
 
-        .shop-card img { width: 100%; height: 300px; object-fit: contain; margin-bottom: 20px; }
+        .shop-card:hover { border-color: #444; transform: translateY(-10px); }
+
+        .shop-card img { width: 100%; height: 280px; object-fit: contain; margin-bottom: 25px; }
 
         .back-link {
             position: fixed;
             top: 25px;
-            left: 40px;
+            left: 30px;
             z-index: 300;
             color: white;
             text-decoration: none;
             background: rgba(255,255,255,0.1);
-            padding: 10px 20px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 30px;
+            backdrop-filter: blur(15px);
             display: none;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         /* MODÁL */
@@ -209,27 +235,31 @@
             position: fixed;
             z-index: 1000;
             left: 0; top: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.9);
+            background-color: rgba(0,0,0,0.95);
             backdrop-filter: blur(10px);
             align-items: center;
             justify-content: center;
         }
 
         .modal-content {
-            background: #111;
-            padding: 30px;
-            border-radius: 30px;
+            background: #0a0a0a;
+            padding: 40px;
+            border-radius: 35px;
             width: 90%;
             max-width: 450px;
             border: 1px solid #333;
             position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
 
-        .modal-content label { display: block; margin-top: 15px; font-size: 0.9rem; color: #ccc; text-align: left; }
+        .modal-content label { display: block; margin-top: 18px; font-size: 0.85rem; color: #888; text-align: left; text-transform: uppercase; letter-spacing: 1px; }
+        
         .modal-content input, .modal-content select {
-            width: 100%; padding: 12px; margin-top: 5px; background: #222; border: 1px solid #444; border-radius: 10px; color: white; box-sizing: border-box;
+            width: 100%; padding: 14px; margin-top: 8px; background: #151515; border: 1px solid #333; border-radius: 12px; color: white; box-sizing: border-box; font-size: 1rem;
         }
-        .close-modal { position: absolute; top: 20px; right: 20px; cursor: pointer; font-size: 1.5rem; }
+
+        .close-modal { position: absolute; top: 25px; right: 25px; cursor: pointer; font-size: 1.8rem; color: #555; transition: 0.3s; }
+        .close-modal:hover { color: white; }
     </style>
 </head>
 <body>
@@ -248,7 +278,7 @@
     <div id="orderModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeOrder()">&times;</span>
-            <h3 id="modal-title">Order Details</h3>
+            <h3 id="modal-title" style="margin-top: 0; font-size: 1.8rem;">Order Details</h3>
             
             <label id="lbl-jersey">Which jersey?</label>
             <input type="text" id="order-jersey" placeholder="e.g. Real Madrid Home 24/25">
@@ -273,7 +303,7 @@
                 <option value="La Liga">La Liga</option>
             </select>
 
-            <button class="btn-trigger" id="btn-submit" style="width: 100%; margin-top: 25px;" onclick="sendOrder()">Send Request</button>
+            <button class="btn-trigger" id="btn-submit" style="width: 100%; margin-top: 30px;" onclick="sendOrder()">Send Request</button>
         </div>
     </div>
 
@@ -282,30 +312,33 @@
             <h1>Kit.Wision</h1>
             <div id="hero-subtitle">order online today.</div>
         </div>
+        
         <div id="visual-center"><div class="money-icon" id="spinner">⚽</div></div>
-        <section style="height: 85vh;"></section>
-        <section style="height: 100vh;">
+        
+        <section style="height: 80vh;"></section>
+
+        <section>
             <div class="product-box" data-aos="fade-left">
-                <img src="dreslamine1.jpg" alt="Football Jersey" class="img-product-main">
-                <h2 id="text-main">buy football jerseys for really good price.</h2>
+                <img src="dreslamine1.jpg" alt="KitWision Jersey" class="img-product-main">
+                <h2 id="text-main" style="font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 25px;">buy football jerseys for really good price.</h2>
                 <a href="javascript:void(0)" class="btn-trigger" id="btn-main" onclick="goToShop()">Get Jerseys</a>
             </div>
         </section>
     </div>
 
     <div id="shop-page">
-        <h1 id="shop-title" style="text-align: center; font-size: 3rem;">Jersey Collection</h1>
+        <h1 id="shop-title" style="text-align: center; font-size: clamp(2.5rem, 8vw, 4rem); letter-spacing: -2px;">Jersey Collection</h1>
         <div class="shop-grid">
             <div class="shop-card">
-                <img src="dreslamine1.jpg" alt="Jersey">
-                <h3 id="p1-title">Any Football Jersey</h3>
-                <p id="p1-price">274 Kč</p>
+                <img src="dreslamine1.jpg" alt="Any Jersey">
+                <h3 id="p1-title" style="font-size: 1.5rem;">Any Football Jersey</h3>
+                <p id="p1-price" style="font-size: 1.2rem; color: #888; margin: 10px 0 25px;">274 Kč</p>
                 <div class="btn-trigger" id="p1-btn" onclick="openOrder()">Order</div>
             </div>
             <div class="shop-card">
-                <img src="dresbulk.jpg" alt="Bulk">
-                <h3 id="p2-title">Bulk order Football Jersey</h3>
-                <p id="p2-price">Price based on pieces</p>
+                <img src="dresbulk.jpg" alt="Bulk Order">
+                <h3 id="p2-title" style="font-size: 1.5rem;">Bulk order Football Jersey</h3>
+                <p id="p2-price" style="font-size: 0.9rem; color: #666; margin: 10px 0 25px;">Price changes based on pieces</p>
                 <div class="btn-trigger" id="p2-btn" onclick="sendBulkInquiry()">Order</div>
             </div>
         </div>
@@ -313,57 +346,64 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000 });
+        AOS.init({ duration: 1000, once: false });
         let currentLanguage = 'en';
 
+        // Plynulý scroll a otáčení míče
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('main-nav');
             const spin = document.getElementById('spinner');
-            if (window.scrollY > 50) nav.classList.add('scrolled');
+            const scrollPos = window.scrollY;
+            
+            if (scrollPos > 50) nav.classList.add('scrolled');
             else nav.classList.remove('scrolled');
-            spin.style.transform = `rotate(${window.scrollY * 0.25}deg)`;
+            
+            spin.style.transform = `rotate(${scrollPos * 0.3}deg)`;
         });
 
+        // Modál Funkce
         function openOrder() { document.getElementById('orderModal').style.display = 'flex'; }
         function closeOrder() { document.getElementById('orderModal').style.display = 'none'; }
 
+        // WhatsApp odeslání
         function sendOrder() {
             const jersey = document.getElementById('order-jersey').value;
             const name = document.getElementById('order-name').value;
             const size = document.getElementById('order-size').value;
             const patch = document.getElementById('order-patch').value;
-            if(!jersey) { alert(currentLanguage === 'en' ? "Fill jersey name!" : "Vyplň název!"); return; }
+            if(!jersey) { alert(currentLanguage === 'en' ? "Please enter jersey name!" : "Zadejte název dresu!"); return; }
 
-            let msg = "";
-            if(currentLanguage === 'en') msg = "Hello, I want to order:";
-            else if(currentLanguage === 'sk') msg = "Ahoj, chcem objednať:";
-            else msg = "Ahoj, chci objednat:";
-
-            const text = `${msg}\n\n⚽ Jersey: ${jersey}\n👤 Name: ${name || 'Standard'}\n📏 Size: ${size}\n🏷️ Patch: ${patch}`;
+            let intro = currentLanguage === 'en' ? "Hello, I'm interested in:" : (currentLanguage === 'sk' ? "Ahoj, mám záujem o:" : "Ahoj, mám zájem o:");
+            const text = `${intro}\n\n⚽ Jersey: ${jersey}\n👤 Name/Num: ${name || 'None'}\n📏 Size: ${size}\n🏷️ Patch: ${patch}`;
             window.open(`https://wa.me/420736177470?text=${encodeURIComponent(text)}`, '_blank');
         }
 
         function sendBulkInquiry() {
-            let text = currentLanguage === 'en' ? "Hello, I'm interested in a bulk order." : "Ahoj, mám zájem o hromadnou objednávku.";
-            window.open(`https://wa.me/420736177470?text=${encodeURIComponent(text)}`, '_blank');
+            let msg = currentLanguage === 'en' ? "Hello, I'm interested in a bulk order." : "Ahoj, mám zájem o hromadnou objednávku.";
+            window.open(`https://wa.me/420736177470?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
+        // Přepínání stránek
         function goToShop() {
             document.getElementById('home-page').style.display = 'none';
             const shop = document.getElementById('shop-page');
-            shop.style.display = 'block'; setTimeout(() => shop.style.opacity = '1', 10);
+            shop.style.display = 'block'; 
+            setTimeout(() => shop.style.opacity = '1', 50);
             document.getElementById('btn-back').style.display = 'block';
             document.getElementById('visual-center').style.opacity = '0';
+            window.scrollTo(0,0);
         }
 
         function goToHome() {
             document.getElementById('home-page').style.display = 'block';
             const shop = document.getElementById('shop-page');
-            shop.style.opacity = '0'; setTimeout(() => shop.style.display = 'none', 500);
+            shop.style.opacity = '0'; 
+            setTimeout(() => shop.style.display = 'none', 500);
             document.getElementById('btn-back').style.display = 'none';
-            document.getElementById('visual-center').style.opacity = '0.3';
+            document.getElementById('visual-center').style.opacity = '0.2';
         }
 
+        // Překlady
         const translations = {
             en: { 
                 text: "buy football jerseys for really good price.", btn: "Get Jerseys", subtitle: "order online today.", label: "🌐 Language", back: "← Back",
@@ -372,19 +412,21 @@
             },
             cs: { 
                 text: "kupte si fotbalové dresy za skvělé ceny.", btn: "Získat dresy", subtitle: "objednejte online ještě dnes.", label: "🌐 Jazyk", back: "← Zpět",
-                shopTitle: "Kolekce dresů", p1Title: "Jakýkoliv dres", p1Btn: "Objednat", p2Title: "Hromadná objednávka", p2Price: "Cena podle počtu kusů", p2Btn: "Objednat",
-                mTitle: "Detaily objednávky", mJersey: "Který dres?", mName: "Jméno/Číslo (CUSTOM)", mSize: "Velikost", mPatch: "Nášivka", mSubmit: "Odeslat"
+                shopTitle: "Kolekce dresů", p1Title: "Jakýkoliv dres", p1Btn: "Objednat", p2Title: "Hromadná objednávka", p2Price: "Cena dle počtu kusů", p2Btn: "Objednat",
+                mTitle: "Detaily objednávky", mJersey: "Který dres?", mName: "Jméno a číslo (CUSTOM)", mSize: "Velikost", mPatch: "Nášivka na rukáv", mSubmit: "Odeslat poptávku"
             },
             sk: { 
                 text: "kúpte si futbalové dresy za skvelé ceny.", btn: "Získať dresy", subtitle: "objednajte online ešte dnes.", label: "🌐 Jazyk", back: "← Späť",
                 shopTitle: "Kolekcia dresov", p1Title: "Akýkoľvek dres", p1Btn: "Objednať", p2Title: "Hromadná objednávka", p2Price: "Cena podľa počtu kusov", p2Btn: "Objednať",
-                mTitle: "Detaily objednávky", mJersey: "Ktorý dres?", mName: "Meno/Číslo (CUSTOM)", mSize: "Veľkosť", mPatch: "Nášivka", mSubmit: "Odoslať"
+                mTitle: "Detaily objednávky", mJersey: "Ktorý dres?", mName: "Meno a číslo (CUSTOM)", mSize: "Veľkosť", mPatch: "Nášivka na rukáv", mSubmit: "Odoslať dopyt"
             }
         };
 
         function changeLang(lang) {
             currentLanguage = lang;
             const t = translations[lang];
+            
+            // Texty na webu
             document.getElementById('text-main').innerText = t.text;
             document.getElementById('btn-main').innerText = t.btn;
             document.getElementById('hero-subtitle').innerText = t.subtitle;
@@ -395,6 +437,8 @@
             document.getElementById('p1-btn').innerText = t.p1Btn;
             document.getElementById('p2-title').innerText = t.p2Title;
             document.getElementById('p2-btn').innerText = t.p2Btn;
+            
+            // Texty v okně (Modál)
             document.getElementById('modal-title').innerText = t.mTitle;
             document.getElementById('lbl-jersey').innerText = t.mJersey;
             document.getElementById('lbl-name').innerText = t.mName;
@@ -402,8 +446,8 @@
             document.getElementById('lbl-patch').innerText = t.mPatch;
             document.getElementById('btn-submit').innerText = t.mSubmit;
         }
-        
-        // Inicializace na startu (angličtina)
+
+        // Start v Angličtině
         changeLang('en');
     </script>
 </body>
