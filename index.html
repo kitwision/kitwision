@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <link rel="icon" type="image/png" href="kitwision.png">
+    <link rel="apple-touch-icon" href="kitwision.png">
+
     <meta name="google-site-verification" content="Trjrj_Xtkwa99d4t1WiBITV8pc1yVrLexTGppuZvnMw" />
 
     <title>Kit.Wision | Premium Jerseys</title>
@@ -336,7 +339,6 @@
         let currentLanguage = 'en';
         let currentCurrency = 'CZK';
 
-        // Definice cen (Opraveno GBP Patch na 1.4)
         const prices = {
             CZK: { main: "274 Kč", name: "+ 49 Kč", patch: "+ 34 Kč" },
             USD: { main: "$12.5", name: "+ $2", patch: "+ $1.5" },
@@ -390,7 +392,7 @@
         const translations = {
             en: { text: "buy football jerseys for really good price.", btn: "Get Jerseys", subtitle: "order online today.", label: "🌐 Language", back: "← Back", shopTitle: "Jersey Collection", p1Title: "Any Football Jersey", p1Btn: "Order", p2Title: "Bulk Order", p2Price: "Price based on pieces", p2Btn: "Order", mTitle: "Order Details", mJersey: "Which jersey?", mName: "Name/Number (CUSTOM)", mSize: "Size", mPatch: "Sleeve Patch", mSubmit: "Send Request" },
             cs: { text: "kupte si fotbalové dresy za skvělé ceny.", btn: "Získat dresy", subtitle: "objednejte online ještě dnes.", label: "🌐 Jazyk", back: "← Zpět", shopTitle: "Kolekce dresů", p1Title: "Jakýkoliv dres", p1Btn: "Objednat", p2Title: "Hromadná objednávka", p2Price: "Cena podle počtu kusů", p2Btn: "Objednat", mTitle: "Detaily objednávky", mJersey: "Který dres?", mName: "Jméno/Číslo (CUSTOM)", mSize: "Velikost", mPatch: "Nášivka", mSubmit: "Odeslat" },
-            sk: { text: "kúpte si futbalové dresy za skvelé ceny.", btn: "Získať dresy", subtitle: "objednajte online ešte dnes.", label: "🌐 Jazyk", back: "← Späť", shopTitle: "Kolekcia dresov", p1Title: "Akýkoľvek dres", p1Btn: "Objednať", p2Title: "Hromadná objednávka", p2Price: "Cena podľa počtu kusov", p2Btn: "Objednať", mTitle: "Detaily objednávky", mJersey: "Který dres?", mName: "Meno/Číslo (CUSTOM)", mSize: "Veľkosť", mPatch: "Nášivka", mSubmit: "Odoslať" }
+            sk: { text: "kúpte si futbalové dresy za skvelé ceny.", btn: "Získať dresy", subtitle: "objednajte online ešte dnes.", label: "🌐 Jazyk", back: "← Späť", shopTitle: "Kolekcia dresov", p1Title: "Akýkoľvek dres", p1Btn: "Objednať", p2Title: "Hromadná objednávka", p2Price: "Cena podľa počtu kusov", p2Btn: "Objednať", mTitle: "Detaily objednávky", mJersey: "Ktorý dres?", mName: "Meno/Číslo (CUSTOM)", mSize: "Veľkosť", mPatch: "Nášivka", mSubmit: "Odoslať" }
         };
 
         function changeCurrency(curr) {
