@@ -57,7 +57,6 @@
         .lang-container .dropdown-content { left: 0; }
         .curr-container .dropdown-content { right: 0; }
 
-        /* Aktivní stav pro zobrazení dropdownu */
         .dropdown-wrapper.active .dropdown-content {
             opacity: 1;
             visibility: visible;
@@ -234,21 +233,14 @@
             spin.style.transform = `rotate(${window.scrollY * 0.25}deg)`;
         });
 
-        // OPRAVENÁ FUNKCE PRO PŘEPÍNÁNÍ
         function toggleDropdown(el) {
             const wrapper = el.parentElement;
-            const isActive = wrapper.classList.contains('active');
-            
-            // Nejdřív zavřeme všechny ostatní dropdowny
             document.querySelectorAll('.dropdown-wrapper').forEach(w => {
                 if (w !== wrapper) w.classList.remove('active');
             });
-
-            // Přepneme ten aktuální (pokud byl aktivní, zavře se; pokud ne, otevře se)
             wrapper.classList.toggle('active');
         }
 
-        // Zavření při kliknutí kamkoliv mimo menu
         window.onclick = function(event) {
             if (!event.target.closest('.dropdown-wrapper')) {
                 document.querySelectorAll('.dropdown-wrapper').forEach(w => w.classList.remove('active'));
@@ -274,18 +266,23 @@
             window.open(`https://wa.me/420736177470?text=${encodeURIComponent(text)}`, '_blank');
         }
 
+        // OPRAVENO: PŘIDÁN SCROLL NAHORU PŘI PŘECHODU DO SHOPU
         function goToShop() {
+            window.scrollTo({ top: 0, behavior: 'instant' }); // Okamžitě hodí nahoru
             document.getElementById('home-page').style.display = 'none';
             const shop = document.getElementById('shop-page');
-            shop.style.display = 'block'; setTimeout(() => shop.style.opacity = '1', 10);
+            shop.style.display = 'block'; 
+            setTimeout(() => shop.style.opacity = '1', 10);
             document.getElementById('btn-back').style.display = 'block';
             document.getElementById('visual-center').style.opacity = '0';
         }
 
         function goToHome() {
+            window.scrollTo({ top: 0, behavior: 'instant' }); // Okamžitě hodí nahoru
             document.getElementById('home-page').style.display = 'block';
             const shop = document.getElementById('shop-page');
-            shop.style.opacity = '0'; setTimeout(() => shop.style.display = 'none', 500);
+            shop.style.opacity = '0'; 
+            setTimeout(() => shop.style.display = 'none', 500);
             document.getElementById('btn-back').style.display = 'none';
             document.getElementById('visual-center').style.opacity = '0.3';
         }
@@ -299,13 +296,13 @@
         function changeCurrency(curr) {
             currentCurrency = curr;
             document.getElementById('current-currency').innerText = `💰 ${curr}`;
-            document.querySelectorAll('.dropdown-wrapper').forEach(w => w.classList.remove('active')); // Zavře menu po výběru
+            document.querySelectorAll('.dropdown-wrapper').forEach(w => w.classList.remove('active'));
             updateUI();
         }
 
         function changeLang(lang) { 
             currentLanguage = lang; 
-            document.querySelectorAll('.dropdown-wrapper').forEach(w => w.classList.remove('active')); // Zavře menu po výběru
+            document.querySelectorAll('.dropdown-wrapper').forEach(w => w.classList.remove('active'));
             updateUI(); 
         }
 
