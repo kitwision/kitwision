@@ -21,57 +21,68 @@
             width: 100%;
         }
 
-        /* JAZYKOVÉ MENU */
-        .lang-menu {
+        /* MENU PRO JAZYK A MĚNU */
+        .controls-container {
             position: fixed;
             top: 20px;
             right: 40px;
             z-index: 200;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .lang-selected {
+        .dropdown-wrapper {
+            position: relative;
+        }
+
+        .select-box {
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             background: rgba(255, 255, 255, 0.1);
             padding: 8px 15px;
             border-radius: 20px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            min-width: 110px;
+            text-transform: uppercase;
         }
 
-        .lang-dropdown {
+        .dropdown-content {
             position: absolute;
             top: 100%;
             right: 0;
             background: rgba(20, 20, 20, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
-            margin-top: 10px;
+            margin-top: 5px;
             overflow: hidden;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
             transition: all 0.3s ease;
-            min-width: 140px;
+            min-width: 120px;
         }
 
-        .lang-menu:hover .lang-dropdown {
+        .dropdown-wrapper:hover .dropdown-content {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
         }
 
-        .lang-option {
-            padding: 12px 20px;
+        .option {
+            padding: 10px 15px;
             display: block;
             color: white;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             cursor: pointer;
+            text-transform: none;
         }
 
-        .lang-option:hover { background: rgba(255, 255, 255, 0.1); }
+        .option:hover { background: rgba(255, 255, 255, 0.1); }
 
         #main-nav {
             position: fixed;
@@ -232,12 +243,22 @@
 </head>
 <body>
 
-    <div class="lang-menu">
-        <div class="lang-selected" id="current-lang">🌐 Language</div>
-        <div class="lang-dropdown">
-            <div class="lang-option" onclick="changeLang('en')"><span>🇬🇧</span> English</div>
-            <div class="lang-option" onclick="changeLang('cs')"><span>🇨🇿</span> Česky</div>
-            <div class="lang-option" onclick="changeLang('sk')"><span>🇸🇰</span> Slovensky</div>
+    <div class="controls-container">
+        <div class="dropdown-wrapper">
+            <div class="select-box" id="current-lang">🌐 Language</div>
+            <div class="dropdown-content">
+                <div class="option" onclick="changeLang('en')">🇬🇧 English</div>
+                <div class="option" onclick="changeLang('cs')">🇨🇿 Česky</div>
+                <div class="option" onclick="changeLang('sk')">🇸🇰 Slovensky</div>
+            </div>
+        </div>
+        <div class="dropdown-wrapper">
+            <div class="select-box" id="current-currency">💰 CURRENCY</div>
+            <div class="dropdown-content">
+                <div class="option" onclick="changeCurrency('CZK')">CZK</div>
+                <div class="option" onclick="changeCurrency('USD')">USD</div>
+                <div class="option" onclick="changeCurrency('GBP')">GBP</div>
+            </div>
         </div>
     </div>
 
@@ -251,7 +272,7 @@
             <label id="lbl-jersey">Which jersey?</label>
             <input type="text" id="order-jersey" placeholder="e.g. Real Madrid Home 24/25">
 
-            <label id="lbl-name">Name/Number (CUSTOM) + 49 Kč</label>
+            <label id="lbl-name">Name/Number (CUSTOM)</label>
             <input type="text" id="order-name" placeholder="e.g. MBAPPÉ 9">
 
             <label id="lbl-size">Size</label>
@@ -263,7 +284,7 @@
                 <option value="XXL">XXL</option>
             </select>
 
-            <label id="lbl-patch">Sleeve Patch + 34 Kč</label>
+            <label id="lbl-patch">Sleeve Patch</label>
             <select id="order-patch">
                 <option value="None">None</option>
                 <option value="Champions League">Champions League</option>
@@ -313,6 +334,14 @@
     <script>
         AOS.init({ duration: 1000 });
         let currentLanguage = 'en';
+        let currentCurrency = 'CZK';
+
+        // Definice cen (Opraveno GBP Patch na 1.4)
+        const prices = {
+            CZK: { main: "274 Kč", name: "+ 49 Kč", patch: "+ 34 Kč" },
+            USD: { main: "$12.5", name: "+ $2", patch: "+ $1.5" },
+            GBP: { main: "£9.7", name: "+ £1.8", patch: "+ £1.4" }
+        };
 
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('main-nav');
@@ -332,12 +361,8 @@
             const patch = document.getElementById('order-patch').value;
             if(!jersey) { alert(currentLanguage === 'en' ? "Fill jersey name!" : "Vyplň název!"); return; }
 
-            let msg = "";
-            if(currentLanguage === 'en') msg = "Hello, I want to order:";
-            else if(currentLanguage === 'sk') msg = "Ahoj, chcem objednať:";
-            else msg = "Ahoj, chci objednat:";
-
-            const text = `${msg}\n\n⚽ Jersey: ${jersey}\n👤 Name: ${name || 'Standard'}\n📏 Size: ${size}\n🏷️ Patch: ${patch}`;
+            let msg = currentLanguage === 'en' ? "Hello, I want to order:" : (currentLanguage === 'sk' ? "Ahoj, chcem objednať:" : "Ahoj, chci objednat:");
+            const text = `${msg}\n\n⚽ Jersey: ${jersey}\n👤 Name: ${name || 'Standard'}\n📏 Size: ${size}\n🏷️ Patch: ${patch}\n💰 Currency: ${currentCurrency}`;
             window.open(`https://wa.me/420736177470?text=${encodeURIComponent(text)}`, '_blank');
         }
 
@@ -363,14 +388,26 @@
         }
 
         const translations = {
-            en: { text: "buy football jerseys for really good price.", btn: "Get Jerseys", subtitle: "order online today.", label: "🌐 Language", back: "← Back", shopTitle: "Jersey Collection", p1Title: "Any Football Jersey", p1Btn: "Order", p2Title: "Bulk Order", p2Price: "Price based on pieces", p2Btn: "Order", mTitle: "Order Details", mJersey: "Which jersey?", mName: "Name/Number (CUSTOM) + 49 Kč", mSize: "Size", mPatch: "Sleeve Patch + 34 Kč", mSubmit: "Send Request" },
-            cs: { text: "kupte si fotbalové dresy za skvělé ceny.", btn: "Získat dresy", subtitle: "objednejte online ještě dnes.", label: "🌐 Jazyk", back: "← Zpět", shopTitle: "Kolekce dresů", p1Title: "Jakýkoliv dres", p1Btn: "Objednat", p2Title: "Hromadná objednávka", p2Price: "Cena podle počtu kusů", p2Btn: "Objednat", mTitle: "Detaily objednávky", mJersey: "Který dres?", mName: "Jméno/Číslo (CUSTOM) + 49 Kč", mSize: "Velikost", mPatch: "Nášivka + 34 Kč", mSubmit: "Odeslat" },
-            sk: { text: "kúpte si futbalové dresy za skvelé ceny.", btn: "Získať dresy", subtitle: "objednajte online ešte dnes.", label: "🌐 Jazyk", back: "← Späť", shopTitle: "Kolekcia dresov", p1Title: "Akýkoľvek dres", p1Btn: "Objednať", p2Title: "Hromadná objednávka", p2Price: "Cena podľa počtu kusů", p2Btn: "Objednať", mTitle: "Detaily objednávky", mJersey: "Ktorý dres?", mName: "Meno/Číslo (CUSTOM) + 49 Kč", mSize: "Veľkosť", mPatch: "Nášivka + 34 Kč", mSubmit: "Odoslať" }
+            en: { text: "buy football jerseys for really good price.", btn: "Get Jerseys", subtitle: "order online today.", label: "🌐 Language", back: "← Back", shopTitle: "Jersey Collection", p1Title: "Any Football Jersey", p1Btn: "Order", p2Title: "Bulk Order", p2Price: "Price based on pieces", p2Btn: "Order", mTitle: "Order Details", mJersey: "Which jersey?", mName: "Name/Number (CUSTOM)", mSize: "Size", mPatch: "Sleeve Patch", mSubmit: "Send Request" },
+            cs: { text: "kupte si fotbalové dresy za skvělé ceny.", btn: "Získat dresy", subtitle: "objednejte online ještě dnes.", label: "🌐 Jazyk", back: "← Zpět", shopTitle: "Kolekce dresů", p1Title: "Jakýkoliv dres", p1Btn: "Objednat", p2Title: "Hromadná objednávka", p2Price: "Cena podle počtu kusů", p2Btn: "Objednat", mTitle: "Detaily objednávky", mJersey: "Který dres?", mName: "Jméno/Číslo (CUSTOM)", mSize: "Velikost", mPatch: "Nášivka", mSubmit: "Odeslat" },
+            sk: { text: "kúpte si futbalové dresy za skvelé ceny.", btn: "Získať dresy", subtitle: "objednajte online ešte dnes.", label: "🌐 Jazyk", back: "← Späť", shopTitle: "Kolekcia dresov", p1Title: "Akýkoľvek dres", p1Btn: "Objednať", p2Title: "Hromadná objednávka", p2Price: "Cena podľa počtu kusov", p2Btn: "Objednať", mTitle: "Detaily objednávky", mJersey: "Který dres?", mName: "Meno/Číslo (CUSTOM)", mSize: "Veľkosť", mPatch: "Nášivka", mSubmit: "Odoslať" }
         };
+
+        function changeCurrency(curr) {
+            currentCurrency = curr;
+            document.getElementById('current-currency').innerText = `💰 ${curr}`;
+            updateUI();
+        }
 
         function changeLang(lang) {
             currentLanguage = lang;
-            const t = translations[lang];
+            updateUI();
+        }
+
+        function updateUI() {
+            const t = translations[currentLanguage];
+            const p = prices[currentCurrency];
+
             document.getElementById('text-main').innerText = t.text;
             document.getElementById('btn-main').innerText = t.btn;
             document.getElementById('hero-subtitle').innerText = t.subtitle;
@@ -383,12 +420,15 @@
             document.getElementById('p2-btn').innerText = t.p2Btn;
             document.getElementById('modal-title').innerText = t.mTitle;
             document.getElementById('lbl-jersey').innerText = t.mJersey;
-            document.getElementById('lbl-name').innerText = t.mName;
             document.getElementById('lbl-size').innerText = t.mSize;
-            document.getElementById('lbl-patch').innerText = t.mPatch;
             document.getElementById('btn-submit').innerText = t.mSubmit;
+
+            document.getElementById('p1-price').innerText = p.main;
+            document.getElementById('lbl-name').innerText = `${t.mName} ${p.name}`;
+            document.getElementById('lbl-patch').innerText = `${t.mPatch} ${p.patch}`;
         }
-        changeLang('en');
+
+        updateUI();
     </script>
 </body>
 </html>
