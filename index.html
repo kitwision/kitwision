@@ -57,7 +57,7 @@
         .lang-container .dropdown-content { left: 0; }
         .curr-container .dropdown-content { right: 0; }
 
-        .dropdown-wrapper:hover .dropdown-content,
+        /* Aktivní stav pro zobrazení dropdownu */
         .dropdown-wrapper.active .dropdown-content {
             opacity: 1;
             visibility: visible;
@@ -131,8 +131,8 @@
 <body>
 
     <div class="lang-container">
-        <div class="dropdown-wrapper" onclick="toggleDropdown(this)">
-            <div class="select-box" id="current-lang">🌐 Language</div>
+        <div class="dropdown-wrapper">
+            <div class="select-box" id="current-lang" onclick="toggleDropdown(this)">🌐 Language</div>
             <div class="dropdown-content">
                 <div class="option" onclick="changeLang('en')">🇬🇧 English</div>
                 <div class="option" onclick="changeLang('cs')">🇨🇿 Česky</div>
@@ -142,8 +142,8 @@
     </div>
 
     <div class="curr-container">
-        <div class="dropdown-wrapper" onclick="toggleDropdown(this)">
-            <div class="select-box" id="current-currency">💰 CURRENCY</div>
+        <div class="dropdown-wrapper">
+            <div class="select-box" id="current-currency" onclick="toggleDropdown(this)">💰 CURRENCY</div>
             <div class="dropdown-content">
                 <div class="option" onclick="changeCurrency('CZK')">CZK</div>
                 <div class="option" onclick="changeCurrency('USD')">USD</div>
@@ -234,12 +234,21 @@
             spin.style.transform = `rotate(${window.scrollY * 0.25}deg)`;
         });
 
+        // OPRAVENÁ FUNKCE PRO PŘEPÍNÁNÍ
         function toggleDropdown(el) {
-            const isActive = el.classList.contains('active');
-            document.querySelectorAll('.dropdown-wrapper').forEach(w => w.classList.remove('active'));
-            if (!isActive) el.classList.add('active');
+            const wrapper = el.parentElement;
+            const isActive = wrapper.classList.contains('active');
+            
+            // Nejdřív zavřeme všechny ostatní dropdowny
+            document.querySelectorAll('.dropdown-wrapper').forEach(w => {
+                if (w !== wrapper) w.classList.remove('active');
+            });
+
+            // Přepneme ten aktuální (pokud byl aktivní, zavře se; pokud ne, otevře se)
+            wrapper.classList.toggle('active');
         }
 
+        // Zavření při kliknutí kamkoliv mimo menu
         window.onclick = function(event) {
             if (!event.target.closest('.dropdown-wrapper')) {
                 document.querySelectorAll('.dropdown-wrapper').forEach(w => w.classList.remove('active'));
@@ -290,10 +299,15 @@
         function changeCurrency(curr) {
             currentCurrency = curr;
             document.getElementById('current-currency').innerText = `💰 ${curr}`;
+            document.querySelectorAll('.dropdown-wrapper').forEach(w => w.classList.remove('active')); // Zavře menu po výběru
             updateUI();
         }
 
-        function changeLang(lang) { currentLanguage = lang; updateUI(); }
+        function changeLang(lang) { 
+            currentLanguage = lang; 
+            document.querySelectorAll('.dropdown-wrapper').forEach(w => w.classList.remove('active')); // Zavře menu po výběru
+            updateUI(); 
+        }
 
         function updateUI() {
             const t = translations[currentLanguage];
